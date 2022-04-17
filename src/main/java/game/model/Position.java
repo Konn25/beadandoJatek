@@ -2,11 +2,11 @@ package game.model;
 
 import java.util.Objects;
 
-public final class Position {
+public class Position {
     private final int x;
     private final int y;
 
-    Position(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -47,5 +47,4 @@ public final class Position {
     public String toString() {
         return String.format("(%d,%d)", x, y);
     }
-
 }
