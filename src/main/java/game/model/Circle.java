@@ -36,7 +36,7 @@ public class Circle {
     }
 
     public static void main(String[] args){
-        Circle circle = new Circle(CircleType.KEK,new Position(0,0));
+        Circle circle = new Circle(CircleType.BLUE,new Position(0,0));
         circle.positionProperty().addListener((observableValue, oldPos, newPos) ->{
             System.out.printf("%s -> %s\n", oldPos.toStringPos(), newPos.toStringPos());
         } );
