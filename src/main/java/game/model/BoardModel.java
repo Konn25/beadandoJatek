@@ -1,6 +1,7 @@
 package game.model;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 
@@ -12,7 +13,16 @@ public class BoardModel {
     private final Circle[] circles;
 
     public BoardModel() {
-        this(new Circle(CircleType.KEK,new Position(0,0)));
+        this(new Circle(CircleType.BLUE,new Position(0,0)),
+                new Circle(CircleType.RED,new Position(0,1)),
+                new Circle(CircleType.BLUE,new Position(0,2)),
+                new Circle(CircleType.RED,new Position(0,3)),
+
+                new Circle(CircleType.RED,new Position(4,0)),
+                new Circle(CircleType.BLUE,new Position(4,1)),
+                new Circle(CircleType.RED,new Position(4,2)),
+                new Circle(CircleType.BLUE,new Position(4,3))
+                );
     }
 
     public BoardModel(Circle... circles) {
@@ -30,7 +40,7 @@ public class BoardModel {
         }
     }
 
-    public int getCirclesNumber(){
+    public int getCircleNumber(){
         return circles.length;
     }
 
@@ -46,11 +56,11 @@ public class BoardModel {
         return circles[circleNumber].positionProperty();
     }
 
-    public boolean isValidMove(int pieceNumber, CircleDirection direction) {
-        if (pieceNumber < 0 || pieceNumber >= circles.length) {
+    public boolean isValidMove(int circleNumber, CircleDirection direction) {
+        if (circleNumber < 0 || circleNumber >= circles.length) {
             throw new IllegalArgumentException();
         }
-        Position newPosition = circles[pieceNumber].getPosition().moveTo(direction);
+        Position newPosition = circles[circleNumber].getPosition().moveTo(direction);
         if (! isOnBoard(newPosition)) {
             return false;
         }
@@ -72,8 +82,8 @@ public class BoardModel {
         return validMoves;
     }
 
-    public void move(int pieceNumber, CircleDirection direction) {
-        circles[pieceNumber].moveTo(direction);
+    public void move(int circleNumber, CircleDirection direction) {
+        circles[circleNumber].moveTo(direction);
     }
 
     public static boolean isOnBoard(Position position) {
@@ -81,7 +91,7 @@ public class BoardModel {
                 && 0 <= position.y() && position.y() < TABLA_MERET_Y;
     }
 
-    public List<Position> getPiecePositions() {
+    public List<Position> getCirclePositions() {
         List<Position> positions = new ArrayList<>(circles.length);
         for (var piece : circles) {
             positions.add(piece.getPosition());
@@ -89,13 +99,19 @@ public class BoardModel {
         return positions;
     }
 
-    public OptionalInt getPieceNumber(Position position) {
+    public OptionalInt getCircleNumber(Position position) {
         for (int i = 0; i < circles.length; i++) {
             if (circles[i].getPosition().equals(position)) {
                 return OptionalInt.of(i);
             }
         }
         return OptionalInt.empty();
+    }
+
+    public String getCircleColor(int circlesNumber){
+        String color = circles[circlesNumber].getType().name();
+
+        return color;
     }
 
     public String toString() {
