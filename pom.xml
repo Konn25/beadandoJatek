@@ -8,7 +8,7 @@
     <artifactId>beadandoJatek</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <description>Korong játék</description>
+    <description>Board Game 5x4</description>
     <developers>
         <developer>
             <id>Konn25</id>
@@ -16,10 +16,14 @@
             <email>koncz.bence9@gmail.com</email>
         </developer>
     </developers>
+    <scm>
+        <developerConnection>scm:git:https://github.com/Konn25/beadandoJatek</developerConnection>
+    </scm>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <tinylog.version>2.4.1</tinylog.version>
     </properties>
 
     <build>
@@ -65,6 +69,20 @@
             <artifactId>lombok</artifactId>
             <version>1.18.22</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-api</artifactId>
+            <version>${tinylog.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-impl</artifactId>
+            <version>${tinylog.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
