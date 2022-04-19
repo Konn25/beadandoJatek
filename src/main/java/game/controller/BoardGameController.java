@@ -172,7 +172,7 @@ public class BoardGameController {
             row[i]=checkMoveRow(i,RedPos);
         }
 
-        for(int i=0;i<4;i++){
+        for(int i=0;i<3;i++){
             col[i]=checkMoveCol(i,RedPos);
         }
 
@@ -185,14 +185,14 @@ public class BoardGameController {
             if(s==3){
                 Logger.info("RED WINS");
             }
-            Logger.info("Sor: "+s);
+            //Logger.info("Sor: "+s);
         }
 
         for(var s:col){
-            if(s==3){
+            if(s==6){
                 Logger.info("RED WINS");
             }
-            Logger.info("Oszlop: "+s);
+            //Logger.info("Oszlop: "+s);
         }
 
         for(var s:diagonal){
@@ -222,12 +222,10 @@ public class BoardGameController {
 
     public int checkMoveRow(int row,List<Position> PosList){
         int count = 0;
-        int[] rowArray = new int[5];
         for(int i=0;i<PosList.size();i++){
             if (PosList.get(i).x() == row && PosList.get(i).y() < 4) {
                 if (PosList.get(2).y() - PosList.get(0).y() != 3) {
                     count++;
-                    rowArray[i] = count;
                 }
             }
         }
@@ -238,12 +236,14 @@ public class BoardGameController {
 
     public int checkMoveCol(int col,List<Position> PosList){
         int count = 0;
-        int[] colArray = new int[4];
-        for(int i=0; i<PosList.size();i++){
-            if(PosList.get(i).x()<=4 && PosList.get(i).y() ==col){
-                    count++;
-                    colArray[i] = count;
 
+        for(int j=0;j<PosList.size();j++) {
+            if (PosList.get(j).y() == col) {
+                for (int i = 1; i < PosList.size() - 1; i++) {
+                    if ((PosList.get(i + 1).x() - PosList.get(i).x() == 1) && (PosList.get(i + 1).y() - PosList.get(i).y() == 0)) {
+                        count++;
+                    }
+                }
             }
         }
 
@@ -251,16 +251,90 @@ public class BoardGameController {
     }
 
     public int checkMoveDiagonal(List<Position> PosList){
-        int count=0;
 
-        if((PosList.get(1).x()-PosList.get(0).x()<=1 && PosList.get(2).x()-PosList.get(1).x()==1 &&
-                PosList.get(3).x()-PosList.get(2).x()==1) && (PosList.get(1).x() != PosList.get(0).x() && PosList.get(1).y() != PosList.get(0).y())){
-            count++;
+        int count = 0;
+
+        List<Position> diagonal1 = new ArrayList<>();
+        diagonal1.add(new Position(0,0));
+        diagonal1.add(new Position(1,1));
+        diagonal1.add(new Position(2,2));
+        diagonal1.add(new Position(3,3));
+
+        List<Position> diagonal2 = new ArrayList<>();
+        diagonal2.add(new Position(0,1));
+        diagonal2.add(new Position(1,2));
+        diagonal2.add(new Position(2,3));
+
+        List<Position> diagonal3 = new ArrayList<>();
+        diagonal3.add(new Position(1,0));
+        diagonal3.add(new Position(2,1));
+        diagonal3.add(new Position(3,2));
+        diagonal3.add(new Position(4,3));
+
+        List<Position> diagonal4 = new ArrayList<>();
+        diagonal4.add(new Position(2,0));
+        diagonal4.add(new Position(3,1));
+        diagonal4.add(new Position(4,2));
+
+        List<Position> diagonal5= new ArrayList<>();
+        diagonal5.add(new Position(0,2));
+        diagonal5.add(new Position(1,1));
+        diagonal5.add(new Position(2,0));
+
+        List<Position> diagonal6 = new ArrayList<>();
+        diagonal6.add(new Position(0,3));
+        diagonal6.add(new Position(1,2));
+        diagonal6.add(new Position(2,1));
+        diagonal6.add(new Position(3,0));
+
+        List<Position> diagonal7 = new ArrayList<>();
+        diagonal7.add(new Position(1,3));
+        diagonal7.add(new Position(2,2));
+        diagonal7.add(new Position(3,1));
+        diagonal7.add(new Position(4,0));
+
+        List<Position> diagonal8= new ArrayList<>();
+        diagonal8.add(new Position(2,3));
+        diagonal8.add(new Position(3,2));
+        diagonal8.add(new Position(4,1));
+
+
+
+        if(containsAny(PosList,diagonal1)==3){
+            count = containsAny(PosList,diagonal1);
         }
-        else if(PosList.get(2).x()-PosList.get(1).x()==1 && PosList.get(3).x()-PosList.get(2).x()==1){
-            count++;
+        else if(containsAny(PosList,diagonal2)==3){
+            count = containsAny(PosList,diagonal2);
+        }
+        else if(containsAny(PosList,diagonal3)==3){
+            count = containsAny(PosList,diagonal3);
+        }
+        else if(containsAny(PosList,diagonal4)==3){
+            count = containsAny(PosList,diagonal4);
+        }
+        else if(containsAny(PosList,diagonal5)==3){
+            count = containsAny(PosList,diagonal5);
+        }
+        else if(containsAny(PosList,diagonal6)==3){
+            count = containsAny(PosList,diagonal6);
+        }
+        else if(containsAny(PosList,diagonal7)==3){
+            count = containsAny(PosList,diagonal7);
+        }
+        else if(containsAny(PosList,diagonal8)==3){
+            count = containsAny(PosList,diagonal8);
         }
 
+        return count;
+    }
+
+    public int containsAny(List<Position> l1, List<Position> l2) {
+        int count = 0;
+        for (Position elem : l1) {
+            if (l2.contains(elem)) {
+                count++;
+            }
+        }
         return count;
     }
 
