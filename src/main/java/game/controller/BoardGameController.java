@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -136,7 +137,6 @@ public class BoardGameController {
 
     private String getCircleColor(int circleNumber){
         String color=model.getCircleColor(circleNumber);
-        //System.out.println(model.getCircleColor(circleNumber));
 
         return color;
 
@@ -183,28 +183,28 @@ public class BoardGameController {
 
         for(var s:row){
             if(s==3){
-                System.out.println("RED WINS");
+                Logger.info("RED WINS");
             }
-            System.out.println("Sor: "+s);
+            Logger.info("Sor: "+s);
         }
 
         for(var s:col){
             if(s==3){
-                System.out.println("RED WINS");
+                Logger.info("RED WINS");
             }
-            System.out.println("Oszlop: "+s);
+            Logger.info("Oszlop: "+s);
         }
 
         for(var s:diagonal){
-            System.out.println("ATLO: "+s);
+            Logger.info("ATLO: "+s);
         }
         diagonalWinCheck(diagonal);
 
-        System.out.println("RED POS: ");
-        System.out.println(RedPos);
+        Logger.info("RED POS: ");
+        Logger.info(RedPos);
 
-        System.out.println("BLUE POS: ");
-        System.out.println(BluePos);
+        Logger.info("BLUE POS: ");
+        Logger.info(BluePos);
 
 
     }
@@ -212,10 +212,10 @@ public class BoardGameController {
     public void diagonalWinCheck(int[] diagonalArray){
 
         if(diagonalArray[0]==1 && diagonalArray[1]==1 && diagonalArray[2]==1){
-            System.out.println("RED WIN");
+            Logger.info("RED WIN");
         }
         else if(diagonalArray[1]==1 && diagonalArray[2]==1 && diagonalArray[3]==1){
-            System.out.println("RED WIN");
+            Logger.info("RED WIN");
         }
 
     }
